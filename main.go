@@ -9,13 +9,16 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"github.com/F-Dupraz/go-rest-api.git/handlers"
+	"github.com/F-Dupraz/go-rest-api.git/middlewares"
 	"github.com/F-Dupraz/go-rest-api.git/server"
 )
 
 func BindRoutes(s server.Server, r *mux.Router) {
+	r.Use(middlewares.CheckAuthMiddleware(s))
 	r.HandleFunc("/", handlers.HomeHandlers(s)).Methods(http.MethodGet)
 	r.HandleFunc("/signup", handlers.SignUpHandler(s)).Methods(http.MethodPost)
 	r.HandleFunc("/login", handlers.LoginHandler(s)).Methods(http.MethodPost)
+	r.HandleFunc("/me", handlers.MeHandler(s)).Methods(http.MethodGet)
 }
 
 func main() {
