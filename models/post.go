@@ -1,7 +1,10 @@
 package models
 
+import "time"
+
 type Post struct {
-	Id string `json:"id"`
-	PostContent string `json:"post_content"`
-	UserId string `json:"user_id"`
+	Id          string    `json:"id"`
+	PostContent string    `json:"postContent"`
+	CreatedAt   time.Time `json:"createdAt"`
+	UserId      string    `json:"userId"`
 }
